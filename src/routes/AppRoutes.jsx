@@ -10,6 +10,7 @@ const ProductPage = lazy(() => import("../pages/ProductPage.jsx"));
 
 // instant loading components
 import KineticNavbar from "../components/layout/KineticNavbar.jsx";
+import Footer from "../components/layout/Footer.jsx";
 
 export default function AppRoutes() {
   return (
@@ -21,6 +22,7 @@ export default function AppRoutes() {
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/product" element={<ProductPage />} />
       </Routes>
+      <Footer />
     </Suspense>
   );
 }
