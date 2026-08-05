@@ -22,7 +22,7 @@ export default function HeroSection() {
           Next-Gen Shopping
         </span>
 
-        <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
           Shop the Future
         </h1>
 

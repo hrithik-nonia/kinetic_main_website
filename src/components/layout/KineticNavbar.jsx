@@ -20,7 +20,7 @@ export default function KineticNavbar() {
               key={link.link}
               to={link.link}
               className={({ isActive }) =>
-                `${isActive ? "text-blue-600 font-bold" : "text-gray-600"} px-2 hover:text-blue-600`
+                `${isActive ? "text-blue-600 font-bold" : "text-gray-600"} px-2 hover:text-blue-600 hover:underline hover:shadow-2xs`
               }
             >
               {link.name}
