@@ -6,7 +6,7 @@ import { Heart, ShoppingCart, User } from "lucide-react";
 // navbar links
 export const NavbarLinks = [
   { name: "Categories", link: "/filter" },
-  { name: "Deals", link: "/deals" },
+  { name: "Deals", link: "/dealPage" },
   { name: "Sellers", link: "/sellers" },
   { name: "New Arrivals", link: "/new-arrivals" },
 ];

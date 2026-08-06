@@ -1,5 +1,6 @@
 // built in imports
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Timer } from "lucide-react";
 
 // custom imports
@@ -18,6 +19,10 @@ export default function FlashDeals() {
     page * visibleCount + visibleCount,
   );
 
+  // for timer's conditional randering
+  const location = useLocation();
+  const showTimer = location.pathname === "/";
+
   return (
     <>
       <div className="bg-slate-50 py-5">
@@ -26,12 +31,14 @@ export default function FlashDeals() {
           <div className="flex items-center gap-3">
             <h2 className="text-2xl font-bold text-gray-900">Flash Deals</h2>
             {/* Timer badge */}
-            <div className="flex items-center gap-1.5 bg-amber-500 text-white text-sm font-semibold px-3 py-1.5 rounded-full">
-              <Timer size={14} />
-              <span>
-                {hours} : {minutes} : {seconds}
-              </span>
-            </div>
+            {showTimer && (
+              <div className="flex items-center gap-1.5 bg-amber-500 text-white text-sm font-semibold px-3 py-1.5 rounded-full">
+                <Timer size={14} />
+                <span>
+                  {hours} : {minutes} : {seconds}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Nav arrows */}

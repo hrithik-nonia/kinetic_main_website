@@ -7,6 +7,7 @@ const HomePage = lazy(() => import("../pages/HomePage.jsx"));
 const FilterPage = lazy(() => import("../pages/FilterPage.jsx"));
 const ShopPage = lazy(() => import("../pages/ShopPage.jsx"));
 const ProductPage = lazy(() => import("../pages/ProductPage.jsx"));
+const DealPage = lazy(() => import("../pages/DealsPage.jsx"));
 
 // instant loading components
 import KineticNavbar from "../components/layout/KineticNavbar.jsx";
@@ -21,6 +22,7 @@ export default function AppRoutes() {
         <Route path="/filter" element={<FilterPage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/product" element={<ProductPage />} />
+        <Route path="/dealPage" element={<DealPage />} />
       </Routes>
       <Footer />
     </Suspense>
