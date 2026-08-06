@@ -12,7 +12,7 @@ export default function ProductCardForFilterPage({ item }) {
           <img
             src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop"
             alt="img"
-            className="w-full md:h-64 object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+            className="w-full md:h-64 object-cover duration-500 ease-in-out group-hover:scale-105 transition-transform hover:scale-105 "
           />
 
           <span className="bg-[#C44D06] text-white px-2 py-0.5 rounded-full text-[10px] absolute top-2 left-2">
