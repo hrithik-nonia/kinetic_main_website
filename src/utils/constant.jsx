@@ -8,13 +8,13 @@ export const NavbarLinks = [
   { name: "Categories", link: "/filter" },
   { name: "Deals", link: "/dealPage" },
   { name: "Sellers", link: "/sellerPage" },
-  { name: "New Arrivals", link: "/new-arrivals" },
+  { name: "New Arrivals", link: "/newArivalsPage" },
 ];
 
 // navbar navigation buttons
 export const NavbarButtons = [
   { link: "/wishlist", icon: Heart },
-  { link: "/cart", icon: ShoppingCart },
+  { link: "/shop", icon: ShoppingCart },
   { link: "/account", icon: User },
 ];
 

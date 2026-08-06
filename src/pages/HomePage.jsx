@@ -1,4 +1,5 @@
 // built in imports
+import { useLocation } from "react-router-dom";
 
 // custom imports
 import HeroSection from "../components/layout/HeroSection";
@@ -9,6 +10,7 @@ import TrendingNow from "../components/layout/TrendingNow";
 import NewsletterBanner from "../components/layout/NewsletterBanner";
 
 function HomePage() {
+  const location = useLocation();
   return (
     <section>
       {/* hero section s1 */}
@@ -24,7 +26,7 @@ function HomePage() {
 
         {/* first product section */}
         <section>
-          <FlashDeals />
+          <FlashDeals key={location.pathname} />
         </section>
 
         {/* best sellers list */}
