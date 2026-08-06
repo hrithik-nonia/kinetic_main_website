@@ -6,13 +6,13 @@ import { Star, CheckCircle, ShoppingCart, Heart, CircleX } from "lucide-react";
 export default function ProductCardForFilterPage({ item }) {
   return (
     <>
-      <div className="rounded-2xl overflow-hidden shadow-lg hover:scale-101 duration-300 transition-discrete">
+      <div className="rounded-2xl overflow-hidden shadow-lg hover:scale-101 duration-300 transition-discrete group">
         {/* image */}
         <div className="relative group">
           <img
             src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop"
             alt="img"
-            className="w-full "
+            className="w-full md:h-64 object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
           />
 
           <span className="bg-[#C44D06] text-white px-2 py-0.5 rounded-full text-[10px] absolute top-2 left-2">
