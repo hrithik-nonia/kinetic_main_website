@@ -26,7 +26,7 @@ function HomePage() {
 
         {/* first product section */}
         <section>
-          <FlashDeals key={location.pathname} />
+          <FlashDeals key={location.pathname} title="Flash Deals" />
         </section>
 
         {/* best sellers list */}

@@ -1,9 +1,20 @@
 // built in imports
-import { Star, CheckCircle, ShoppingCart, Heart, CircleX } from "lucide-react";
+import {
+  Star,
+  CheckCircle,
+  ShoppingCart,
+  Heart,
+  CircleX,
+  Trash2,
+} from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 // custom imports
 
 export default function ProductCardForFilterPage({ item }) {
+  // delete icon shows only on wishlist page
+  const location = useLocation();
+  const showDeleteIcon = location.pathname === "/wishListPage";
   return (
     <>
       <div className="rounded-2xl overflow-hidden shadow-lg hover:scale-101 duration-300 transition-discrete group">
@@ -23,9 +34,16 @@ export default function ProductCardForFilterPage({ item }) {
             {item.badge2}
           </span>
 
-          <span className="p-2 rounded-full bg-slate-50 absolute top-2 right-2 hidden group-hover:flex cursor-pointer">
-            <Heart className="text-[#C44D06]" strokeWidth={1.5} size={15} />
-          </span>
+          {/* wishlist and heart icon */}
+          {showDeleteIcon ? (
+            <span className="p-2 rounded-full bg-slate-50 absolute top-2 right-2 hidden group-hover:flex cursor-pointer">
+              <Trash2 className="text-[#C44D06]" strokeWidth={1.5} size={15} />
+            </span>
+          ) : (
+            <span className="p-2 rounded-full bg-slate-50 absolute top-2 right-2 hidden group-hover:flex cursor-pointer">
+              <Heart className="text-[#C44D06]" strokeWidth={1.5} size={15} />
+            </span>
+          )}
         </div>
 
         {/* text */}

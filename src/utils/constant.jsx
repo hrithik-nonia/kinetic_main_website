@@ -13,7 +13,7 @@ export const NavbarLinks = [
 
 // navbar navigation buttons
 export const NavbarButtons = [
-  { link: "/wishlist", icon: Heart },
+  { link: "/wishListPage", icon: Heart },
   { link: "/shop", icon: ShoppingCart },
   { link: "/account", icon: User },
 ];

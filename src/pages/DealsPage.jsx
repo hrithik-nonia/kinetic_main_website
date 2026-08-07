@@ -22,7 +22,7 @@ export default function DealPage() {
 
         {/* deal products */}
         <section>
-          <FlashDeals />
+          <FlashDeals title="Trending This Week" />
         </section>
 
         {/* a form for deal notification */}

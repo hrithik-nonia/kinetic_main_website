@@ -10,7 +10,7 @@ import UseCountdown from "../common/UseCountdown";
 import ProductCardForFilterPage from "../common/ProductCardForFilterPage";
 import { ProductDataForFilterPage } from "../../utils/constant";
 
-export default function FlashDeals() {
+export default function FlashDeals({ title }) {
   const [page, setPage] = useState(0);
   const visibleCount = 4;
   const [hours, minutes, seconds] = UseCountdown(4 * 3600 + 22 * 60 + 19);
@@ -19,6 +19,9 @@ export default function FlashDeals() {
   // apply condition randering between home page and new arival page
   const location = useLocation();
   const showHomeContent = location.pathname === "/";
+
+  // show liked product count
+  const showLikedProductCount = location.pathname === "/wishListPage";
 
   // Dono ke liye same pagination logic use karo
   const activeData = showHomeContent ? Products : ProductDataForFilterPage;
@@ -34,9 +37,14 @@ export default function FlashDeals() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6 ">
           <div className="flex items-center gap-3">
-            <h2 className="text-2xl font-bold text-gray-900">
-              {showHomeContent ? "Flash Deals" : "Trending This Week"}
-            </h2>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
+
+              {showLikedProductCount && (
+                <h3 className="text-[13px] text-gray-600">4 items saved</h3>
+              )}
+            </div>
+
             {/* Timer badge */}
             {showHomeContent && (
               <div className="flex items-center gap-1.5 bg-amber-500 text-white text-sm font-semibold px-3 py-1.5 rounded-full">
