@@ -11,6 +11,7 @@ const DealPage = lazy(() => import("../pages/DealsPage.jsx"));
 const SellerPage = lazy(() => import("../pages/SellerPage.jsx"));
 const NewArivalsPage = lazy(() => import("../pages/NewArivalsPage.jsx"));
 const WishListPage = lazy(() => import("../pages/WishListPage.jsx"));
+const ProfilePage = lazy(() => import("../pages/ProfilePage.jsx"));
 
 // instant loading components
 import KineticNavbar from "../components/layout/KineticNavbar.jsx";
@@ -29,6 +30,7 @@ export default function AppRoutes() {
         <Route path="/sellerPage" element={<SellerPage />} />
         <Route path="/newArivalsPage" element={<NewArivalsPage />} />
         <Route path="/wishListPage" element={<WishListPage />} />
+        <Route path="/profilePage" element={<ProfilePage />} />
       </Routes>
       <Footer />
     </Suspense>

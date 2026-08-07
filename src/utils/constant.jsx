@@ -15,7 +15,7 @@ export const NavbarLinks = [
 export const NavbarButtons = [
   { link: "/wishListPage", icon: Heart },
   { link: "/shop", icon: ShoppingCart },
-  { link: "/account", icon: User },
+  { link: "/profilePage", icon: User },
 ];
 
 // temp product data
