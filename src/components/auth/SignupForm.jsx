@@ -16,35 +16,64 @@ import InputField from "./InputField";
 import GoogleIcon from "./GoogleIcon";
 
 function SignupForm({ onSwitch }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
+  // states for ui
   const [showPass, setShowPass] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
+  // states for form data
+  // initial form data
+  const initialFormData = {
+    name: "",
+    email: "",
+    password: "",
+    confirm: "",
+  };
+
+  // terms & condition check button
+  const [agreed, setAgreed] = useState(false);
+
+  const [formData, setFormData] = useState(initialFormData);
+
+  // track form data
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  // validate before submiting
   const validate = () => {
     const e = {};
-    if (!name.trim()) e.name = "Full name is required";
-    if (!email) e.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(email)) e.email = "Enter a valid email";
-    if (!password) e.password = "Password is required";
-    else if (password.length < 6) e.password = "Minimum 6 characters";
-    if (!confirm) e.confirm = "Please confirm your password";
-    else if (confirm !== password) e.confirm = "Passwords do not match";
+    if (!formData.name.trim()) e.name = "Full name is required";
+    if (!formData.email) e.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(formData.email))
+      e.email = "Enter a valid email";
+    if (!formData.password) e.password = "Password is required";
+    else if (formData.password.length < 6) e.password = "Minimum 6 characters";
+    if (!formData.confirm) e.confirm = "Please confirm your password";
+    else if (formData.confirm !== formData.password)
+      e.confirm = "Passwords do not match";
     if (!agreed) e.agreed = "Please accept the Terms & Conditions";
     return e;
   };
 
-  const handleSubmit = () => {
-    const e = validate();
-    setErrors(e);
-    if (Object.keys(e).length === 0) {
+  // submit form data
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const error = validate();
+
+    setErrors(error);
+    if (Object.keys(error).length === 0) {
       setLoading(true);
       setTimeout(() => setLoading(false), 2000);
+      const completeFormData = { ...formData, agreed };
+      console.log(completeFormData);
     }
   };
 
@@ -57,13 +86,14 @@ function SignupForm({ onSwitch }) {
         </p>
       </div>
 
-      <div className="flex flex-col gap-3">
+      <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
         <InputField
           icon={User}
           placeholder="Full name"
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
+          value={formData.name}
+          name="name"
+          handleChange={handleChange}
+          onChange={() => {
             setErrors((p) => ({ ...p, name: "" }));
           }}
           error={errors.name}
@@ -72,9 +102,10 @@ function SignupForm({ onSwitch }) {
           icon={Mail}
           type="email"
           placeholder="Email address"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
+          value={formData.email}
+          name="email"
+          handleChange={handleChange}
+          onChange={() => {
             setErrors((p) => ({ ...p, email: "" }));
           }}
           error={errors.email}
@@ -83,9 +114,10 @@ function SignupForm({ onSwitch }) {
           icon={Lock}
           type={showPass ? "text" : "password"}
           placeholder="Password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
+          value={formData.password}
+          name="password"
+          handleChange={handleChange}
+          onChange={() => {
             setErrors((p) => ({ ...p, password: "" }));
           }}
           error={errors.password}
@@ -103,9 +135,10 @@ function SignupForm({ onSwitch }) {
           icon={Lock}
           type={showConfirm ? "text" : "password"}
           placeholder="Confirm password"
-          value={confirm}
-          onChange={(e) => {
-            setConfirm(e.target.value);
+          value={formData.confirm}
+          name="confirm"
+          handleChange={handleChange}
+          onChange={() => {
             setErrors((p) => ({ ...p, confirm: "" }));
           }}
           error={errors.confirm}
@@ -119,7 +152,7 @@ function SignupForm({ onSwitch }) {
             </button>
           }
         />
-      </div>
+      </form>
 
       <div className="flex flex-col gap-1 -mt-1">
         <label
@@ -131,8 +164,9 @@ function SignupForm({ onSwitch }) {
         >
           <div
             className={`w-4 h-4 mt-0.5 rounded flex items-center justify-center border transition-all duration-150 shrink-0
-            ${agreed ? "bg-blue-600 border-blue-600" : errors.agreed ? "border-red-400" : "border-gray-300 bg-white"}`}
+            ${agreed ? "bg-blue-600 border-blue-600" : "border-gray-300 bg-white"}`}
           >
+            {/*: errors.agreed ? "border-red-400"*/}
             {agreed && (
               <CheckCircle
                 size={11}
@@ -142,11 +176,11 @@ function SignupForm({ onSwitch }) {
             )}
           </div>
           <span className="text-sm text-gray-600 leading-snug">
-            I agree to the{" "}
+            I agree to the
             <span className="text-blue-600 font-medium hover:underline">
               Terms & Conditions
-            </span>{" "}
-            and{" "}
+            </span>
+            and
             <span className="text-blue-600 font-medium hover:underline">
               Privacy Policy
             </span>
@@ -159,9 +193,9 @@ function SignupForm({ onSwitch }) {
 
       <button
         onClick={handleSubmit}
-        disabled={loading}
-        className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-200
-          ${loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 active:scale-[0.98] shadow-md shadow-blue-200"}`}
+        // disabled={loading}
+        className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-200 cursor-pointer ${loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700 active:scale-[0.98] shadow-md shadow-blue-200"}
+          `}
       >
         {loading ? (
           <span className="flex items-center gap-2">

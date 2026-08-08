@@ -3,9 +3,10 @@ function InputField({
   type = "text",
   placeholder,
   value,
-  onChange,
   error,
   rightElement,
+  name,
+  handleChange,
 }) {
   return (
     <div className="flex flex-col gap-1">
@@ -19,10 +20,11 @@ function InputField({
         />
         <input
           type={type}
-          placeholder={placeholder}
+          name={name}
           value={value}
-          onChange={onChange}
-          className="flex-1 text-sm text-gray-800 placeholder-gray-400 outline-none bg-transparent"
+          onChange={handleChange || (() => {})} // fallback agar handleChange na ho
+          placeholder={placeholder}
+          className="flex-1 outline-none bg-transparent text-sm text-gray-800 placeholder:text-gray-400"
         />
         {rightElement}
       </div>
