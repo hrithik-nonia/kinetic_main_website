@@ -12,10 +12,13 @@ const SellerPage = lazy(() => import("../pages/SellerPage.jsx"));
 const NewArivalsPage = lazy(() => import("../pages/NewArivalsPage.jsx"));
 const WishListPage = lazy(() => import("../pages/WishListPage.jsx"));
 const ProfilePage = lazy(() => import("../pages/ProfilePage.jsx"));
+const Profile = lazy(() => import("../pages/Profile.jsx"));
 
 // instant loading components
 import KineticNavbar from "../components/layout/KineticNavbar.jsx";
 import Footer from "../components/layout/Footer.jsx";
+import ProtectedRoute from "./ProtectedRoutes.jsx";
+import { ProtectAuthForm } from "./ProtectedRoutes.jsx";
 
 export default function AppRoutes() {
   return (
@@ -30,7 +33,24 @@ export default function AppRoutes() {
         <Route path="/sellerPage" element={<SellerPage />} />
         <Route path="/newArivalsPage" element={<NewArivalsPage />} />
         <Route path="/wishListPage" element={<WishListPage />} />
-        <Route path="/profilePage" element={<ProfilePage />} />
+
+        <Route
+          path="/profilePage"
+          element={
+            <ProtectAuthForm>
+              <ProfilePage />
+            </ProtectAuthForm>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </Suspense>

@@ -1,11 +1,16 @@
 // built in imports
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // custom imports
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 
 export default function AuthPage() {
+  // for navigation
+  const navigate = useNavigate();
+  // =---------------
+
   const [tab, setTab] = useState("login");
   const [animating, setAnimating] = useState(false);
   const [displayTab, setDisplayTab] = useState("login");
@@ -52,7 +57,10 @@ export default function AuthPage() {
             }}
           >
             {displayTab === "login" ? (
-              <LoginForm onSwitch={() => switchTab("signup")} />
+              <LoginForm
+                onSwitch={() => switchTab("signup")}
+                onSuccess={() => navigate("/profile")}
+              />
             ) : (
               <SignupForm onSwitch={() => switchTab("login")} />
             )}

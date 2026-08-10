@@ -9,34 +9,97 @@ import {
   GitBranch,
   Lock,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 // custom imports
 import InputField from "./InputField";
 import GoogleIcon from "./GoogleIcon";
+import authService from "../../services/authService";
 
-export default function LoginForm({ onSwitch }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function LoginForm({ onSuccess, onSwitch }) {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [remember, setRemember] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const validate = () => {
-    const e = {};
-    if (!email) e.email = "Email is required";
-    else if (!/\S+@\S+\.\S+/.test(email)) e.email = "Enter a valid email";
-    if (!password) e.password = "Password is required";
-    else if (password.length < 6) e.password = "Minimum 6 characters";
-    return e;
+  // initial form data
+  const initialFormData = {
+    email: "",
+    password: "",
   };
 
-  const handleSubmit = () => {
-    const e = validate();
-    setErrors(e);
-    if (Object.keys(e).length === 0) {
-      setLoading(true);
-      setTimeout(() => setLoading(false), 2000);
+  // state for form data
+  const [loginFormData, setLoginFormData] = useState(initialFormData);
+
+  // handle form change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setLoginFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // submit handler
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const newErrors = {};
+
+    // remember check
+    if (!remember) {
+      newErrors.remember = "Please accept the terms to continue";
+    }
+
+    // email validation
+    if (!loginFormData.email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(loginFormData.email)) {
+      newErrors.email = "Enter a valid email address";
+    }
+
+    // password validation
+    if (!loginFormData.password) {
+      newErrors.password = "Password is required";
+    } else if (loginFormData.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
+    } else if (!/[A-Z]/.test(loginFormData.password)) {
+      newErrors.password =
+        "Password must contain at least one uppercase letter";
+    } else if (!/[a-z]/.test(loginFormData.password)) {
+      newErrors.password =
+        "Password must contain at least one lowercase letter";
+    } else if (!/\d/.test(loginFormData.password)) {
+      newErrors.password = "Password must contain at least one number";
+    } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(loginFormData.password)) {
+      newErrors.password =
+        "Password must contain at least one special character";
+    }
+
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
+
+    setLoading(true);
+    try {
+      const response = await authService.login(loginFormData);
+
+      // Sirf access_token store karo
+      localStorage.setItem("access_token", response.access_token);
+      localStorage.setItem("user", JSON.stringify(response.user));
+      toast.success(`Welcome back, ${response.user.name}!`);
+
+      if (onSuccess) onSuccess();
+    } catch (err) {
+      const detail = err.response?.data?.detail;
+      const message = Array.isArray(detail)
+        ? detail[0]?.msg
+        : detail || "Login failed. Try again.";
+      toast.error(message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,24 +116,27 @@ export default function LoginForm({ onSwitch }) {
         <InputField
           icon={Mail}
           type="email"
+          name="email"
           placeholder="Email address"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            setErrors((p) => ({ ...p, email: "" }));
+          value={loginFormData.email}
+          handleChange={(e) => {
+            handleChange(e);
+            setErrors((p) => ({ ...p, email: "", api: "" }));
           }}
           error={errors.email}
         />
+
         <InputField
           icon={Lock}
           type={showPass ? "text" : "password"}
+          name="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            setErrors((p) => ({ ...p, password: "" }));
+          value={loginFormData.password}
+          handleChange={(e) => {
+            handleChange(e);
+            setErrors((p) => ({ ...p, password: "", api: "" }));
           }}
-          error={errors.password}
+          error={errors.Password}
           rightElement={
             <button
               onClick={() => setShowPass(!showPass)}
@@ -160,7 +226,7 @@ export default function LoginForm({ onSwitch }) {
       </div>
 
       <p className="text-center text-sm text-gray-500">
-        Don't have an account?{" "}
+        Don't have an account?
         <button
           onClick={onSwitch}
           className="text-blue-600 font-semibold hover:underline"

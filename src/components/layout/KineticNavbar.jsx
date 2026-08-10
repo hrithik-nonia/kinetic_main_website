@@ -1,11 +1,22 @@
 // built in imports
-import { Menu, Search } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { Menu, Search, User } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 // custom imports
 import { NavbarLinks, NavbarButtons } from "../../utils/constant.jsx";
+import authService from "../../services/authService.js";
 
 export default function KineticNavbar() {
+  // switch between auth form and profile page
+  const navigate = useNavigate();
+
+  const handleProfileClick = () => {
+    if (authService.isLoggedIn()) {
+      navigate("/profile"); // ← logged in → profile
+    } else {
+      navigate("/profilePage"); // ← not logged in → auth page
+    }
+  };
   return (
     <>
       <nav className="w-full bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
@@ -52,9 +63,17 @@ export default function KineticNavbar() {
               </NavLink>
             ))}
 
+            {/* Profile button — auth check ke saath */}
+            <button
+              onClick={handleProfileClick}
+              className="text-gray-600 hover:text-blue-600"
+            >
+              <User className="w-5 h-5" />
+            </button>
+
             <button
               aria-label="burger-menu"
-              className=" hover:bg-blue-700 md:hidden"
+              className="hover:bg-blue-700 md:hidden"
             >
               <Menu className="w-5 h-5" />
             </button>

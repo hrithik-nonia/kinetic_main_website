@@ -1,5 +1,5 @@
 // built in imports
-import { Heart, ShoppingCart, User } from "lucide-react";
+import { Heart, ShoppingCart } from "lucide-react";
 
 // custom imports
 
@@ -15,7 +15,6 @@ export const NavbarLinks = [
 export const NavbarButtons = [
   { link: "/wishListPage", icon: Heart },
   { link: "/shop", icon: ShoppingCart },
-  { link: "/profilePage", icon: User },
 ];
 
 // temp product data
