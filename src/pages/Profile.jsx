@@ -1,18 +1,27 @@
 // built in imports
+import { useQuery } from "@tanstack/react-query";
 
 // custom imports
 import ProfileHeader from "../components/layout/ProfileHeader";
 import UserStatsBar from "../components/layout/UserStatsBar";
 import AccountSettings from "../components/layout/AccountSettings";
 import RecentOrders from "../components/layout/RecentOrders";
+import authService from "../services/authService";
 
 export default function Profile() {
+  const { data: user, isLoading } = useQuery({
+    queryKey: ["me"],
+    queryFn: () => authService.getMe(),
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <>
       <section className="bg-slate-50 p-6 space-y-7">
         {/* profile name */}
         <div>
-          <ProfileHeader />
+          <ProfileHeader user={user} />
         </div>
 
         {/* main content */}

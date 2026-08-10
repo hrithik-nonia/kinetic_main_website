@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 // custom imports
 import authService from "../services/authService";
-import api from "../services/axiosInstance";
+import { publicApi } from "../services/axiosInstance";
 
 export default function ProtectedRoute({ children }) {
   const [checking, setChecking] = useState(true);
@@ -22,7 +22,7 @@ export default function ProtectedRoute({ children }) {
 
       // Token expire hua → refresh try karo
       try {
-        const { data } = await api.post("/auth/refresh");
+        const { data } = await publicApi.post("/auth/refresh");
         localStorage.setItem("access_token", data.access_token);
         setIsAuth(true);
       } catch {

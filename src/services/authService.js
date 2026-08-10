@@ -1,4 +1,4 @@
-import api from "./axiosInstance";
+import { publicApi, privateApi } from "./axiosInstance";
 
 class AuthService {
 
@@ -23,12 +23,28 @@ class AuthService {
   }
 
   async signup(data) {
-    const response = await api.post("/user/auth/sign-up", data);  // ← api use karo
+    // post sign up data
+    const response = await publicApi.post("/user/auth/sign-up", data);
     return response.data;
   }
 
+
   async login(data) {
-    const response = await api.post("/user/auth/login", data);  // ← api use karo
+    // post login data
+    const response = await publicApi.post("/user/auth/login", data);
+    return response.data;
+  }
+
+
+  async getMe() {
+    // get user
+    const response = await privateApi.get("/user/auth/me"); // ← private
+    return response.data;
+  }
+
+  async editUser(data) {
+    // edit user
+    const response = await privateApi.patch("/user/auth/edit-user", data); // ← private
     return response.data;
   }
 }
