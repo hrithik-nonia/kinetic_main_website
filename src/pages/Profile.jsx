@@ -14,7 +14,12 @@ export default function Profile() {
     queryFn: () => authService.getMe(),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  const { data: dashboard, isLoading: dashboardLoading } = useQuery({
+    queryKey: ["dashboard"],
+    queryFn: () => authService.getDashboard(),
+  });
+
+  if (isLoading || dashboardLoading) return <div>Loading...</div>;
 
   return (
     <>
@@ -30,7 +35,7 @@ export default function Profile() {
           <div className="lg:col-span-3 space-y-5">
             {/* info badge */}
             <div>
-              <UserStatsBar />
+              <UserStatsBar statsData={dashboard.stats} />
             </div>
 
             {/* setting options */}
@@ -41,7 +46,7 @@ export default function Profile() {
 
           {/* setting data */}
           <div className="lg:col-span-1">
-            <RecentOrders />
+            <RecentOrders recentOrder={dashboard.recent_orders} />
           </div>
         </div>
       </section>

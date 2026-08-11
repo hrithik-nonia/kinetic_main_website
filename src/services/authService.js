@@ -42,11 +42,20 @@ class AuthService {
     return response.data;
   }
 
+
   async editUser(data) {
     // edit user
     const response = await privateApi.patch("/user/auth/edit-user", data); // ← private
     return response.data;
   }
+
+
+  async getDashboard() {
+    // get stats + recent viewed product list
+    const response = await privateApi.get("/user/dashboard")
+    return response.data
+  }
+
 }
 
 export default new AuthService();

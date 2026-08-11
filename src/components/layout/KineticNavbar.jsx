@@ -66,7 +66,7 @@ export default function KineticNavbar() {
             {/* Profile button — auth check ke saath */}
             <button
               onClick={handleProfileClick}
-              className="text-gray-600 hover:text-blue-600"
+              className="text-gray-600 hover:text-blue-600 cursor-pointer"
             >
               <User className="w-5 h-5" />
             </button>
