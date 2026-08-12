@@ -21,18 +21,22 @@ export default function ProductCardForFilterPage({ item }) {
         {/* image */}
         <div className="relative group">
           <img
-            src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop"
-            alt="img"
+            src={item.thumbnail}
+            alt={item.name}
             className="w-full md:h-64 object-cover duration-500 ease-in-out group-hover:scale-105 transition-transform hover:scale-105 "
           />
 
           <span className="bg-[#C44D06] text-white px-2 py-0.5 rounded-full text-[10px] absolute top-2 left-2">
-            {item.badge1}
+            {item.pricing.discount_percent} % OFF
           </span>
 
-          <span className="bg-yellow-500 text-white px-2 py-0.5 rounded-full text-[10px] absolute top-8 left-2">
-            {item.badge2}
-          </span>
+          {item.pricing.is_on_sale ? (
+            <span className="bg-yellow-500 text-white px-2 py-0.5 rounded-full text-[10px] absolute top-8 left-2">
+              ON SALE
+            </span>
+          ) : (
+            ""
+          )}
 
           {/* wishlist and heart icon */}
           {showDeleteIcon ? (
@@ -50,9 +54,9 @@ export default function ProductCardForFilterPage({ item }) {
         <div className="p-5 space-y-2">
           <div className="flex justify-between">
             <span
-              className={`flex items-center gap-1 ${item.isBrandVerified ? "text-green-500" : "text-[#C44D06]"}`}
+              className={`flex items-center gap-1 ${item.inventory.stock > 0 ? "text-green-500" : "text-[#C44D06]"}`}
             >
-              {item.isBrandVerified ? (
+              {item.inventory.stock > 0 ? (
                 <CheckCircle size={12} />
               ) : (
                 <CircleX size={12} />
@@ -63,20 +67,34 @@ export default function ProductCardForFilterPage({ item }) {
             <span className="flex items-center gap-1">
               <Star size={12} className="text-[#B83E00] fill-[#B83E00]" />
 
-              <span className="text-[12px] font-semibold">{item.rating}</span>
+              <span className="text-[12px] font-semibold">
+                {item.ratings.average}
+              </span>
             </span>
           </div>
 
-          <div className="font-[600] cursor-pointer">{item.title}</div>
+          <div className="font-[600] cursor-pointer">{item.name}</div>
 
           <div className="flex justify-between items-center">
-            <div>
-              <p className="line-through text-[12px] text-gray-600">
-                ${item.originalPrice}
-              </p>
+            {item.pricing.is_on_sale ? (
+              <div>
+                <p className="line-through text-[12px] text-gray-600">
+                  INR {item.pricing.original_price}
+                </p>
 
-              <p className="font-[600]">${item.currentPrice}</p>
-            </div>
+                <div className="flex gap-2">
+                  <p className="text-gray-600">{item.pricing.currency}</p>
+
+                  <p className="font-[600]">{item.pricing.sale_price}</p>
+                </div>
+              </div>
+            ) : (
+              <div className="flex gap-2">
+                <p className="text-gray-600">{item.pricing.currency}</p>
+
+                <p className="font-[600]">{item.pricing.original_price}</p>
+              </div>
+            )}
 
             <div className="rounded-lg p-2 bg-blue-600 hover:bg-blue-700 cursor-pointer">
               <ShoppingCart strokeWidth={1.3} className="text-white" />

@@ -1,6 +1,5 @@
 // built in imports
 import { ChevronRight } from "lucide-react";
-import { useLocation } from "react-router-dom";
 
 // custom imports
 
@@ -10,13 +9,7 @@ const crumbs = [
   { label: "Premium Audio", href: null },
 ];
 
-export default function Breadcrumb({
-  items = crumbs,
-  currentCount = 24,
-  totalCount = 1500,
-}) {
-  const location = useLocation();
-  const showResultCount = location.pathname !== "/product";
+export default function Breadcrumb({ items = crumbs }) {
   return (
     <div className="flex justify-between flex-col gap-2 md:flex-row">
       {/* Breadcrumb trail */}
@@ -45,21 +38,6 @@ export default function Breadcrumb({
           );
         })}
       </nav>
-
-      {/* Results count */}
-      {showResultCount && (
-        <p className="text-sm text-gray-600 whitespace-nowrap">
-          Showing
-          <span className="font-bold text-gray-900">
-            1–{currentCount.toLocaleString()}
-          </span>
-          of
-          <span className="font-bold text-gray-900">
-            {totalCount.toLocaleString()}
-          </span>
-          results
-        </p>
-      )}
     </div>
   );
 }

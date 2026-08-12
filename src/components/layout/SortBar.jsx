@@ -1,31 +1,53 @@
 import { useState } from "react";
-import { ChevronDown, LayoutGrid, List } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 const sortOptions = [
-  "Relevance",
-  "Price: Low to High",
-  "Price: High to Low",
-  "Newest",
-  "Best Rated",
+  { label: "Relevance", value: "relevance" },
+  { label: "Price: Low to High", value: "price_asc" },
+  { label: "Price: High to Low", value: "price_desc" },
+  { label: "Newest", value: "newest" },
+  { label: "Best Rated", value: "rating" },
 ];
 
-export default function SortBar({ onViewChange }) {
-  const [sort, setSort] = useState("Relevance");
+export default function SortBar({
+  sort,
+  onSortChange,
+  total,
+  currentPage,
+  limit,
+}) {
+  console.log(
+    sort + "..............",
+    total + "........................",
+    currentPage + "//////////////////",
+    limit,
+  );
+
   const [open, setOpen] = useState(false);
-  const [view, setView] = useState("grid");
+
+  // showing X-Y of Z results
+  const from = total === 0 ? 0 : (currentPage - 1) * limit + 1;
+  const to = Math.min(currentPage * limit, total);
 
   const handleSelect = (option) => {
-    setSort(option);
+    onSortChange(option.value); // ✅ parent ko batao
     setOpen(false);
   };
 
-  const handleView = (v) => {
-    setView(v);
-    onViewChange?.(v);
-  };
+  const currentLabel =
+    sortOptions.find((o) => o.value === sort)?.label ?? "Relevance";
 
   return (
-    <div className="relative flex items-center justify-between w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg">
+    <div className="relative flex items-center justify-between w-full px-4 py-3 bg-white border border-gray-200 rounded-lg">
+      {/* Showing results */}
+      <span className="text-sm text-gray-500">
+        Showing
+        <strong>
+          {from}–{to}
+        </strong>
+        of <strong>{total}</strong> results
+      </span>
+
       {/* Sort dropdown */}
       <div className="flex items-center gap-2 text-sm">
         <span className="text-gray-500">Sort by:</span>
@@ -33,57 +55,30 @@ export default function SortBar({ onViewChange }) {
           onClick={() => setOpen((p) => !p)}
           className="flex items-center gap-1 font-semibold text-gray-800 hover:text-blue-600 transition-colors"
         >
-          {sort}
+          {currentLabel}
           <ChevronDown
             size={15}
             className={`text-gray-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
           />
         </button>
 
-        {/* Dropdown menu */}
         {open && (
-          <div className="absolute top-full left-4 mt-1 z-20 w-52 bg-white border border-gray-200 rounded-lg shadow-lg py-1 overflow-hidden">
+          <div className="absolute top-full left-auto right-16 mt-1 z-20 w-52 bg-white border border-gray-200 rounded-lg shadow-lg py-1 overflow-hidden">
             {sortOptions.map((option) => (
               <button
-                key={option}
+                key={option.value}
                 onClick={() => handleSelect(option)}
                 className={`w-full text-left px-4 py-2 text-sm transition-colors ${
-                  sort === option
+                  sort === option.value
                     ? "bg-blue-50 text-blue-600 font-medium"
                     : "text-gray-700 hover:bg-gray-50"
                 }`}
               >
-                {option}
+                {option.label}
               </button>
             ))}
           </div>
         )}
-      </div>
-
-      {/* View toggle */}
-      <div className="flex items-center gap-1">
-        <button
-          onClick={() => handleView("grid")}
-          aria-label="Grid view"
-          className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${
-            view === "grid"
-              ? "bg-blue-600 text-white"
-              : "text-gray-400 hover:text-gray-600 hover:bg-gray-100"
-          }`}
-        >
-          <LayoutGrid size={16} />
-        </button>
-        <button
-          onClick={() => handleView("list")}
-          aria-label="List view"
-          className={`w-8 h-8 rounded-md flex items-center justify-center transition-colors ${
-            view === "list"
-              ? "bg-blue-600 text-white"
-              : "text-gray-400 hover:text-gray-600 hover:bg-gray-100"
-          }`}
-        >
-          <List size={16} />
-        </button>
       </div>
     </div>
   );
