@@ -39,12 +39,23 @@ export default function Footer() {
               <ul className="flex flex-col gap-2">
                 {links.map((linkItem) => (
                   <li key={linkItem.title}>
-                    <Link
-                      to={linkItem.link}
-                      className="text-sm text-blue-600 hover:text-blue-800 hover:underline transition-colors"
-                    >
-                      {linkItem.title}
-                    </Link>
+                    {linkItem.isExternal ? (
+                      <a
+                        href={linkItem.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-blue-600 hover:text-blue-800 hover:underline transition-colors flex items-center gap-1"
+                      >
+                        {linkItem.title} ↗
+                      </a>
+                    ) : (
+                      <Link
+                        to={linkItem.link}
+                        className="text-sm text-blue-600 hover:text-blue-800 hover:underline transition-colors"
+                      >
+                        {linkItem.title}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

@@ -14,6 +14,10 @@ const WishListPage = lazy(() => import("../pages/WishListPage.jsx"));
 const ProfilePage = lazy(() => import("../pages/ProfilePage.jsx"));
 const Profile = lazy(() => import("../pages/Profile.jsx"));
 const CompanyPage = lazy(() => import("../pages/CompanyPage.jsx"));
+const CustomerSupport = lazy(() => import("../pages/CustomerSupport.jsx"));
+const SellerCenter = lazy(() => import("../pages/SellerCenter.jsx"));
+const ShippingInfo = lazy(() => import("../pages/ShippingInfo.jsx"));
+const AffiliateProgram = lazy(() => import("../pages/AffiliateProgram.jsx"));
 
 // instant loading components
 import KineticNavbar from "../components/layout/KineticNavbar.jsx";
@@ -54,6 +58,11 @@ export default function AppRoutes() {
         />
 
         <Route path="/company" element={<CompanyPage />} />
+
+        <Route path="/support" element={<CustomerSupport />} />
+        <Route path="/seller-center" element={<SellerCenter />} />
+        <Route path="/shipping-info" element={<ShippingInfo />} />
+        <Route path="/affiliate-program" element={<AffiliateProgram />} />
       </Routes>
 
       <Footer />

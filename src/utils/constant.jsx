@@ -355,7 +355,11 @@ export const footerLinks = {
   ],
   Support: [
     { title: "Customer Support", link: "/support" },
-    { title: "Seller Center", link: "/seller-center" },
+    {
+      title: "Seller Center",
+      link: "http://localhost:5174/",
+      isExternal: true,
+    },
     { title: "Shipping Info", link: "/shipping-info" },
     { title: "Affiliate Program", link: "/affiliate-program" },
   ],
