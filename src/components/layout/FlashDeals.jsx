@@ -5,31 +5,62 @@ import { ChevronLeft, ChevronRight, Timer } from "lucide-react";
 
 // custom imports
 import ProductCard from "../common/ProductCard";
-import { Products } from "../../utils/constant";
 import UseCountdown from "../common/UseCountdown";
 import ProductCardForFilterPage from "../common/ProductCardForFilterPage";
 import { ProductDataForFilterPage } from "../../utils/constant";
 
-export default function FlashDeals({ title }) {
-  const [page, setPage] = useState(0);
+export default function FlashDeals({
+  title,
+  products,
+  totalPages,
+  currentPage,
+  onPageChange,
+  isFetching,
+}) {
+  // pages
+  const [localPage, setLocalPage] = useState(0);
+
+  // ik page per 4 card desplay
   const visibleCount = 4;
+
+  //
   const [hours, minutes, seconds] = UseCountdown(4 * 3600 + 22 * 60 + 19);
 
-  // for timer's conditional randering
-  // apply condition randering between home page and new arival page
   const location = useLocation();
-  const showHomeContent = location.pathname === "/";
-
-  // show liked product count
+  const showHomeContent = location.pathname === "/"; // ✅ pehle define karo
   const showLikedProductCount = location.pathname === "/wishListPage";
 
-  // Dono ke liye same pagination logic use karo
-  const activeData = showHomeContent ? Products : ProductDataForFilterPage;
-  const maxPage = Math.ceil(activeData.length / visibleCount) - 1;
+  // ab yeh use karo
+  const activeData = showHomeContent
+    ? (products ?? [])
+    : ProductDataForFilterPage;
+  const localMaxPage = Math.ceil(activeData.length / visibleCount) - 1;
   const visible = activeData.slice(
-    page * visibleCount,
-    page * visibleCount + visibleCount,
+    localPage * visibleCount,
+    localPage * visibleCount + visibleCount,
   );
+
+  const handleNext = () => {
+    if (localPage < localMaxPage) {
+      setLocalPage((p) => p + 1);
+    } else if (currentPage < totalPages) {
+      onPageChange(currentPage + 1);
+      setLocalPage(0);
+    }
+  };
+
+  const handlePrev = () => {
+    if (localPage > 0) {
+      setLocalPage((p) => p - 1);
+    } else if (currentPage > 1) {
+      onPageChange(currentPage - 1);
+      setLocalPage(0);
+    }
+  };
+
+  const isNextDisabled =
+    localPage === localMaxPage && currentPage === totalPages;
+  const isPrevDisabled = localPage === 0 && currentPage === 1;
 
   return (
     <>
@@ -39,6 +70,13 @@ export default function FlashDeals({ title }) {
           <div className="flex items-center gap-3">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
+
+              {/* ✅ subtle fetching indicator */}
+              {isFetching && (
+                <span className="text-xs text-indigo-400 animate-pulse">
+                  Loading...
+                </span>
+              )}
 
               {showLikedProductCount && (
                 <h3 className="text-[13px] text-gray-600">4 items saved</h3>
@@ -59,15 +97,15 @@ export default function FlashDeals({ title }) {
           {/* Nav arrows */}
           <div className="flex gap-2">
             <button
-              onClick={() => setPage((p) => Math.max(0, p - 1))}
-              disabled={page === 0}
+              onClick={handlePrev}
+              disabled={isPrevDisabled}
               className="w-9 h-9 rounded-full border border-gray-200 bg-white flex items-center justify-center hover:border-indigo-400 hover:text-indigo-600 disabled:opacity-30 transition"
             >
               <ChevronLeft size={16} />
             </button>
             <button
-              onClick={() => setPage((p) => Math.min(maxPage, p + 1))}
-              disabled={page === maxPage}
+              onClick={handleNext}
+              disabled={isNextDisabled}
               className="w-9 h-9 rounded-full border border-gray-200 bg-white flex items-center justify-center hover:border-indigo-400 hover:text-indigo-600 disabled:opacity-30 transition"
             >
               <ChevronRight size={16} />
@@ -76,27 +114,17 @@ export default function FlashDeals({ title }) {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div
+          className={`grid grid-cols-2 md:grid-cols-4 gap-4 transition-opacity ${isFetching ? "opacity-50" : "opacity-100"}`}
+        >
           {visible.map((item) =>
             showHomeContent ? (
+              // all products , home page
               <ProductCard key={item.id} product={item} />
             ) : (
               <ProductCardForFilterPage key={item.id} item={item} />
             ),
           )}
-        </div>
-
-        {/* Pagination dots */}
-        <div className="flex justify-center gap-2 mt-6">
-          {Array.from({ length: maxPage + 1 }).map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setPage(i)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                i === page ? "bg-indigo-600 w-5" : "bg-gray-300"
-              }`}
-            />
-          ))}
         </div>
       </div>
     </>

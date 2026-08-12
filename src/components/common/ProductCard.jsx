@@ -12,18 +12,24 @@ export default function ProductCard({ product }) {
     setTimeout(() => setAdded(false), 1500);
   };
 
+  // ✅ nested structure se values
+  const image = product.images?.main;
+  const discount = product.pricing?.discount_percent;
+  const salePrice = product.pricing?.sale_price;
+  const originalPrice = product.pricing?.original_price;
+
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200 flex flex-col">
       {/* Image area */}
       <div className="relative bg-gray-50">
         <img
-          src={product.image}
+          src={image}
           alt={product.name}
           className="w-full h-48 object-cover"
         />
         {/* Discount badge */}
         <span className="absolute top-3 left-3 bg-amber-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-          -{product.discount}%
+          -{discount}%
         </span>
         {/* Wishlist */}
         <button
@@ -49,10 +55,10 @@ export default function ProductCard({ product }) {
         {/* Pricing */}
         <div className="flex items-center gap-2 mt-auto">
           <span className="text-indigo-600 font-bold text-sm">
-            ${product.price.toFixed(2)}
+            ₹{salePrice?.toFixed(2)}
           </span>
           <span className="text-gray-400 text-xs line-through">
-            ${product.originalPrice.toFixed(2)}
+            ${originalPrice.toFixed(2)}
           </span>
         </div>
 
