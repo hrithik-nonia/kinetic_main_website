@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 export default function CuratedCollections() {
   return (
@@ -13,13 +14,13 @@ export default function CuratedCollections() {
             Tailored selections for every aspect of your life.
           </p>
         </div>
-        <a
-          href="#"
+        <NavLink
+          to="/filter"
           className="hidden sm:flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 mt-2"
         >
           View All Categories
           <ArrowRight className="w-4 h-4" />
-        </a>
+        </NavLink>
       </div>
 
       {/* Bento Grid */}

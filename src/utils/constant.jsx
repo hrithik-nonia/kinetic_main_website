@@ -344,3 +344,73 @@ export const ProductDataForFilterPage = [
     currentPrice: 161.49,
   },
 ];
+
+// footer links
+export const footerLinks = {
+  Company: [
+    { title: "About Kinetic", link: "/company?section=about-kinetic" },
+    { title: "Sustainability", link: "/company?section=sustainability" },
+    { title: "Careers", link: "/company?section=careers" },
+    { title: "Press Kit", link: "/company?section=press-kit" },
+  ],
+  Support: [
+    { title: "Customer Support", link: "/support" },
+    { title: "Seller Center", link: "/seller-center" },
+    { title: "Shipping Info", link: "/shipping-info" },
+    { title: "Affiliate Program", link: "/affiliate-program" },
+  ],
+  Legal: [
+    { title: "Terms of Service", link: "/terms-of-service" },
+    { title: "Privacy Policy", link: "/privacy-policy" },
+    { title: "Cookies Policy", link: "/cookies-policy" },
+  ],
+};
+
+// companyContent static data
+export const companyContent = [
+  {
+    id: 1,
+    slug: "about-kinetic",
+    title: "About Kinetic",
+    content: [
+      "Kinetic Market is a modern e-commerce platform built to make online shopping simple, reliable, and convenient. We bring a wide range of quality products together in one place, making it easier for customers to discover and purchase the products they need.",
+      "Our focus is on providing a smooth shopping experience, from browsing products to receiving orders. We aim to offer clear product information, reliable service, secure payments, and dependable delivery.",
+      "At Kinetic Market, we believe that good e-commerce is not just about selling products — it's about building trust with customers and continuously improving their shopping experience.",
+    ],
+    mission: {
+      title: "Our Mission",
+      content:
+        "Our mission is to create a convenient and trustworthy online marketplace where customers can shop with confidence and sellers can grow their businesses.",
+    },
+  },
+  {
+    id: 2,
+    slug: "sustainability",
+    title: "Sustainability",
+    content: [
+      "At Kinetic Market, we believe that responsible business practices can help create a better future. We continuously look for ways to reduce unnecessary waste and make our operations more responsible.",
+      "We focus on thoughtful packaging, efficient operations, and responsible business practices wherever possible. Our goal is to minimize our environmental impact while continuing to provide a reliable shopping experience for our customers.",
+      "We are committed to improving our practices over time and supporting a more sustainable approach to e-commerce.",
+    ],
+  },
+  {
+    id: 3,
+    slug: "careers",
+    title: "Careers",
+    content: [
+      "At Kinetic Market, we believe that great products are built by talented and motivated people. We value creativity, teamwork, continuous learning, and a willingness to take on new challenges.",
+      "We aim to create a positive and supportive work environment where people can improve their skills, share ideas, and contribute to meaningful projects.",
+      "As Kinetic Market grows, we look forward to building a team of passionate people who want to learn, grow, and help shape the future of our platform.",
+    ],
+  },
+  {
+    id: 4,
+    slug: "press-kit",
+    title: "Press Kit",
+    content: [
+      "Kinetic Market is a modern e-commerce platform focused on providing customers with a simple, reliable, and convenient online shopping experience.",
+      "Our platform brings quality products together in one place while focusing on customer trust, reliable service, and continuous improvement.",
+      "This section provides general company and brand information for media, partners, and other interested parties.",
+    ],
+  },
+];

@@ -1,4 +1,5 @@
 // built in imports
+import { NavLink } from "react-router-dom";
 
 // custom imports
 import hero_banner from "../../assets/banner_imgs/hero_banner.png";
@@ -32,12 +33,18 @@ export default function HeroSection() {
         </p>
 
         <div className="flex items-center gap-4">
-          <button className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors">
+          <NavLink
+            to="/dealPage"
+            className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-6 py-3 rounded-full transition-colors"
+          >
             Explore Deals
-          </button>
-          <button className="bg-white/15 hover:bg-white/25 backdrop-blur text-white text-sm font-semibold px-6 py-3 rounded-full border border-white/20 transition-colors">
+          </NavLink>
+          <NavLink
+            to="/newArivalsPage"
+            className="bg-white/15 hover:bg-white/25 backdrop-blur text-white text-sm font-semibold px-6 py-3 rounded-full border border-white/20 transition-colors"
+          >
             New Arrivals
-          </button>
+          </NavLink>
         </div>
       </div>
     </section>

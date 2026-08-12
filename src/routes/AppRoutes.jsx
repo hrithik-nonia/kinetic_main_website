@@ -13,6 +13,7 @@ const NewArivalsPage = lazy(() => import("../pages/NewArivalsPage.jsx"));
 const WishListPage = lazy(() => import("../pages/WishListPage.jsx"));
 const ProfilePage = lazy(() => import("../pages/ProfilePage.jsx"));
 const Profile = lazy(() => import("../pages/Profile.jsx"));
+const CompanyPage = lazy(() => import("../pages/CompanyPage.jsx"));
 
 // instant loading components
 import KineticNavbar from "../components/layout/KineticNavbar.jsx";
@@ -51,7 +52,10 @@ export default function AppRoutes() {
             </ProtectedRoute>
           }
         />
+
+        <Route path="/company" element={<CompanyPage />} />
       </Routes>
+
       <Footer />
     </Suspense>
   );
