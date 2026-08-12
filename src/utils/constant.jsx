@@ -364,9 +364,9 @@ export const footerLinks = {
     { title: "Affiliate Program", link: "/affiliate-program" },
   ],
   Legal: [
-    { title: "Terms of Service", link: "/terms-of-service" },
-    { title: "Privacy Policy", link: "/privacy-policy" },
-    { title: "Cookies Policy", link: "/cookies-policy" },
+    { title: "Terms of Service", link: "/legal?section=terms-of-service" },
+    { title: "Privacy Policy", link: "/legal?section=privacy-policy" },
+    { title: "Cookies Policy", link: "/legal?section=cookies-policy" },
   ],
 };
 
@@ -415,6 +415,90 @@ export const companyContent = [
       "Kinetic Market is a modern e-commerce platform focused on providing customers with a simple, reliable, and convenient online shopping experience.",
       "Our platform brings quality products together in one place while focusing on customer trust, reliable service, and continuous improvement.",
       "This section provides general company and brand information for media, partners, and other interested parties.",
+    ],
+  },
+];
+
+// leagel page
+export const legalContent = [
+  {
+    id: 1,
+    slug: "terms-of-service",
+    title: "Terms of Service",
+    lastUpdated: "August 12, 2026",
+    sections: [
+      {
+        heading: "1. Acceptance of Terms",
+        body: "By accessing and using Kinetic Marketplace, you agree to comply with and be bound by these Terms of Service. If you do not agree with any part of these terms, please do not use our services.",
+      },
+      {
+        heading: "2. User Accounts & Security",
+        body: "You are responsible for maintaining the confidentiality of your account credentials and password. You agree to accept responsibility for all activities that occur under your account.",
+      },
+      {
+        heading: "3. Orders & Payment Terms",
+        body: "All orders placed on Kinetic Marketplace are subject to product availability and order acceptance. Prices for products are listed in USD/local currency and are subject to change without prior notice.",
+      },
+      {
+        heading: "4. Prohibited Conduct",
+        body: "Users are strictly prohibited from engaging in fraudulent activities, attempting unauthorized access to system databases, scraping content, or violating any local, national, or international laws.",
+      },
+      {
+        heading: "5. Limitation of Liability",
+        body: "Kinetic Marketplace acts as a bridge between buyers and verified sellers. We are not liable for direct, indirect, incidental, or consequential damages resulting from third-party vendor products.",
+      },
+    ],
+  },
+  {
+    id: 2,
+    slug: "privacy-policy",
+    title: "Privacy Policy",
+    lastUpdated: "August 12, 2026",
+    sections: [
+      {
+        heading: "1. Information We Collect",
+        body: "We collect personal information that you provide to us, such as your full name, shipping address, email address, phone number, and payment information during account creation or checkout.",
+      },
+      {
+        heading: "2. How We Use Your Information",
+        body: "Your information is used to process orders, manage deliveries, send tracking updates, prevent fraudulent transactions, and continuously personalize your shopping experience.",
+      },
+      {
+        heading: "3. Data Sharing & Third Parties",
+        body: "We do not sell your personal data. We only share necessary order details with trusted third parties such as logistics/delivery partners and payment processors to complete your transactions.",
+      },
+      {
+        heading: "4. Data Protection & Security",
+        body: "We implement industry-standard SSL encryption, secure PCI-DSS payment gateways, and strict access controls to protect your personal information against unauthorized access.",
+      },
+      {
+        heading: "5. Your Privacy Rights",
+        body: "You have the right to request access to, correction of, or complete deletion of your personal data stored on Kinetic Marketplace by contacting our Data Privacy officer.",
+      },
+    ],
+  },
+  {
+    id: 3,
+    slug: "cookies-policy",
+    title: "Cookies Policy",
+    lastUpdated: "August 12, 2026",
+    sections: [
+      {
+        heading: "1. What Are Cookies?",
+        body: "Cookies are small text files placed on your device by websites that you visit. They are widely used to make websites work more efficiently and to store your preferences.",
+      },
+      {
+        heading: "2. Types of Cookies We Use",
+        body: "Essential Cookies (required for shopping cart and secure login), Analytics Cookies (to analyze site performance and visitor trends), and Preference Cookies (to remember your language & region).",
+      },
+      {
+        heading: "3. Managing & Disabling Cookies",
+        body: "You can control or disable cookies through your web browser settings (Chrome, Safari, Firefox, Edge). Please note that disabling essential cookies may impact certain site functionality like cart persistence.",
+      },
+      {
+        heading: "4. Third-Party Analytics Cookies",
+        body: "We utilize anonymized Google Analytics and performance monitoring cookies to improve site speed and optimize user navigation without tracking personal identities.",
+      },
     ],
   },
 ];
