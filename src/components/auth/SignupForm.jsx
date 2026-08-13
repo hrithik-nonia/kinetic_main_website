@@ -11,6 +11,7 @@ import {
   Lock,
 } from "lucide-react";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 // custom imports
 import InputField from "./InputField";
@@ -218,22 +219,23 @@ function SignupForm({ onSwitch }) {
               {agreed && <Check size={12} strokeWidth={3} />}
             </div>
             <span className="text-sm text-gray-600 leading-snug">
-              I agree to the{" "}
-              <a
-                href="#terms"
+              I agree to the
+              <Link
+                to="/legal?section=terms-of-service"
+                onClick={(e) => e.stopPropagation()}
                 onClick={(e) => e.stopPropagation()}
                 className="text-blue-600 font-medium hover:underline"
               >
                 Terms & Conditions
-              </a>{" "}
-              and{" "}
-              <a
-                href="#privacy"
+              </Link>
+              and
+              <Link
+                to="/legal?section=privacy-policy"
                 onClick={(e) => e.stopPropagation()}
                 className="text-blue-600 font-medium hover:underline"
               >
                 Privacy Policy
-              </a>
+              </Link>
             </span>
           </label>
           {errors.agreed && (
@@ -292,18 +294,28 @@ function SignupForm({ onSwitch }) {
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <button
+        <a
+          href="http://localhost:8000/api/auth/google"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
           type="button"
           className="flex items-center justify-center gap-2 py-2.5 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 hover:border-gray-300 transition-all text-sm font-medium text-gray-700 active:scale-[0.98]"
         >
           <GoogleIcon /> Google
-        </button>
-        <button
+        </a>
+        <a
+          href="http://localhost:8000/api/auth/github"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
           type="button"
           className="flex items-center justify-center gap-2 py-2.5 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 hover:border-gray-300 transition-all text-sm font-medium text-gray-700 active:scale-[0.98]"
         >
           <GitBranch size={17} /> GitHub
-        </button>
+        </a>
       </div>
 
       <p className="text-center text-sm text-gray-500">
