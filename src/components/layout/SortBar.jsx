@@ -16,13 +16,6 @@ export default function SortBar({
   currentPage,
   limit,
 }) {
-  console.log(
-    sort + "..............",
-    total + "........................",
-    currentPage + "//////////////////",
-    limit,
-  );
-
   const [open, setOpen] = useState(false);
 
   // showing X-Y of Z results

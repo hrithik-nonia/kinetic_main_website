@@ -67,6 +67,7 @@ function FilterPage() {
           <FiltersSidebar
             filters={filters}
             onFilterChange={handleFilterChange}
+            dbMaxPrice={products?.db_max_price ?? 2000}
           />
         </div>
 

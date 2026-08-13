@@ -13,10 +13,12 @@ export default function ProductCard({ product }) {
   };
 
   // ✅ nested structure se values
-  const image = product.images?.main;
+  const image = product.images?.thumbnail;
   const discount = product.pricing?.discount_percent;
   const salePrice = product.pricing?.sale_price;
   const originalPrice = product.pricing?.original_price;
+
+  console.log(product);
 
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200 flex flex-col">

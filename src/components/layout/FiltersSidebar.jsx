@@ -1,20 +1,30 @@
 // built in imports
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Star } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 
 // custom imports
 import categoryService from "../../services/categoryService";
 
-export default function FiltersSidebar({ onFilterChange }) {
+export default function FiltersSidebar({ onFilterChange, dbMaxPrice = 2000 }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [price, setPrice] = useState(2000);
+  const [price, setPrice] = useState(dbMaxPrice);
   const [rating, setRating] = useState(0);
+
+  // peice range setter ka max value
+  useEffect(() => {
+    if (dbMaxPrice && price === 2000) {
+      // ← sirf initial load pe
+      // eslint-disable-next-line
+      setPrice(dbMaxPrice);
+    }
+    // eslint-disable-next-line
+  }, [dbMaxPrice]);
 
   const handleCategory = (cat) => {
     const newCat = selectedCategory === cat ? undefined : cat;
     setSelectedCategory(newCat);
-    onFilterChange({ category: newCat }); // parent ko batao
+    onFilterChange({ category: newCat });
   };
 
   const handlePrice = (val) => {
@@ -29,7 +39,7 @@ export default function FiltersSidebar({ onFilterChange }) {
 
   const clearAll = () => {
     setSelectedCategory(null);
-    setPrice(2000);
+    setPrice(dbMaxPrice);
     setRating(0);
     onFilterChange({
       // ✅ sab reset karo
@@ -69,14 +79,14 @@ export default function FiltersSidebar({ onFilterChange }) {
             className="flex items-center gap-2 cursor-pointer group"
           >
             <div
-              onClick={() => handleCategory(cat.slug)} // slug pass karo
+              onClick={() => handleCategory(cat.name)}
               className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-colors ${
-                selectedCategory === cat.slug
+                selectedCategory === cat.name
                   ? "bg-blue-600 border-blue-600"
                   : "border-gray-300 group-hover:border-blue-400"
               }`}
             >
-              {selectedCategory === cat.slug && (
+              {selectedCategory === cat.name && (
                 <svg viewBox="0 0 10 8" className="w-2.5 h-2.5 fill-white">
                   <path
                     d="M1 4l3 3 5-6"
@@ -90,7 +100,7 @@ export default function FiltersSidebar({ onFilterChange }) {
               )}
             </div>
             <span
-              className={`text-sm ${selectedCategory === cat.slug ? "text-gray-900 font-medium" : "text-gray-600"}`}
+              className={`text-sm ${selectedCategory === cat.name ? "text-gray-900 font-medium" : "text-gray-600"}`}
             >
               {cat.name}
             </span>
@@ -106,13 +116,13 @@ export default function FiltersSidebar({ onFilterChange }) {
         <input
           type="range"
           min={0}
-          max={2000}
+          max={dbMaxPrice}
           step={10}
           value={price}
           onChange={(e) => handlePrice(Number(e.target.value))}
           className="w-full h-1.5 rounded-full appearance-none cursor-pointer accent-blue-600"
           style={{
-            background: `linear-gradient(to right, #2563eb ${(price / 2000) * 100}%, #e5e7eb ${(price / 2000) * 100}%)`,
+            background: `linear-gradient(to right, #2563eb ${(price / dbMaxPrice) * 100}%, #e5e7eb ${(price / dbMaxPrice) * 100}%)`,
           }}
         />
         <div className="flex justify-between text-xs text-gray-500">
@@ -120,7 +130,7 @@ export default function FiltersSidebar({ onFilterChange }) {
           <span className="text-blue-600 font-medium">
             ₹{price.toLocaleString()}
           </span>
-          <span>₹2000+</span>
+          <span>₹{dbMaxPrice.toLocaleString()}+</span>
         </div>
       </div>
 

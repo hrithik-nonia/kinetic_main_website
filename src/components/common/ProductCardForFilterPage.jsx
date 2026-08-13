@@ -15,13 +15,15 @@ export default function ProductCardForFilterPage({ item }) {
   // delete icon shows only on wishlist page
   const location = useLocation();
   const showDeleteIcon = location.pathname === "/wishListPage";
+  console.log(item);
+
   return (
     <>
       <div className="rounded-2xl overflow-hidden shadow-lg hover:scale-101 duration-300 transition-discrete group">
         {/* image */}
         <div className="relative group">
           <img
-            src={item.thumbnail}
+            src={item.images?.thumbnail}
             alt={item.name}
             className="w-full md:h-64 object-cover duration-500 ease-in-out group-hover:scale-105 transition-transform hover:scale-105 "
           />
