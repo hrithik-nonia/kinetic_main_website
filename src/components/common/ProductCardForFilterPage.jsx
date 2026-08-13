@@ -15,7 +15,6 @@ export default function ProductCardForFilterPage({ item }) {
   // delete icon shows only on wishlist page
   const location = useLocation();
   const showDeleteIcon = location.pathname === "/wishListPage";
-  console.log(item);
 
   return (
     <>

@@ -4,6 +4,8 @@ import { BadgeCheck, Users, Star } from "lucide-react";
 // custom imports
 
 function SellerCard({ seller }) {
+  console.log(seller);
+
   return (
     <div className="bg-white border border-gray-200 rounded-2xl p-5 flex flex-col items-center gap-3 hover:shadow-md transition-shadow duration-200 w-full">
       {/* Logo + verified badge */}
@@ -18,18 +20,22 @@ function SellerCard({ seller }) {
           />
         </div>
         {/* Verified tick */}
-        <span className="absolute -bottom-1.5 -right-1.5 bg-white rounded-full p-0.5 shadow">
-          <BadgeCheck
-            size={18}
-            className="text-teal-500 fill-teal-500"
-            style={{ color: "white" }}
-          />
-        </span>
+        {seller.is_verified ? (
+          <span className="absolute -bottom-1.5 -right-1.5 bg-white rounded-full p-0.5 shadow">
+            <BadgeCheck
+              size={18}
+              className="text-teal-500 fill-teal-500"
+              style={{ color: "white" }}
+            />
+          </span>
+        ) : (
+          ""
+        )}
       </div>
 
       {/* Name & category */}
       <div className="text-center">
-        <h3 className="text-sm font-bold text-gray-800">{seller.name}</h3>
+        <h3 className="text-sm font-bold text-gray-800">{seller.initials}</h3>
         <p className="text-xs text-indigo-500 font-medium mt-0.5">
           {seller.category}
         </p>

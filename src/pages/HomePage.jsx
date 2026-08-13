@@ -26,7 +26,7 @@ function HomePage() {
   } = useQuery({
     queryKey: ["products", currentPage, 12],
     queryFn: () => productService.getAllProduct(currentPage, 12),
-    placeholderData: (previousData) => previousData, // ✅ v5 syntax
+    placeholderData: (previousData) => previousData,
   });
 
   if (productLoading) return <div>Loading...</div>;
@@ -39,7 +39,7 @@ function HomePage() {
       </section>
 
       <section className=" px-6 py-10 flex flex-col gap-10">
-        {/* gallery */}
+        {/* category */}
         <section>
           <CuratedCollections />
         </section>

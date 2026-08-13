@@ -1,10 +1,15 @@
 // built in imports
+import { useContext } from "react";
+import { UserContext } from "../../context/AppContext";
 
 // custom imports
 import SellerCard from "../common/SellerCard";
-import { Sellers } from "../../utils/constant";
 
 export default function VerifiedSellers() {
+  // get seller data from context
+  const { sellers, isSellerLoading } = useContext(UserContext);
+
+  if (isSellerLoading) return <div>Loading...</div>;
   return (
     <div>
       {/* Header */}
@@ -14,7 +19,7 @@ export default function VerifiedSellers() {
 
       {/* Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {Sellers.map((seller) => (
+        {sellers.map((seller) => (
           <SellerCard key={seller.id} seller={seller} />
         ))}
       </div>

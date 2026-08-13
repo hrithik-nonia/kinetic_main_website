@@ -1,7 +1,20 @@
+// built in imports
 import { ArrowRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+
+// custom imports
+import { UserContext } from "../../context/AppContext";
 
 export default function CuratedCollections() {
+  // take values from context
+  const { categories } = useContext(UserContext);
+  const newCategories = categories?.slice(0, 4) ?? [];
+  const firstTitle = newCategories[0]?.name ?? "Electronics";
+  const secondTitle = newCategories[1]?.name ?? "Fashion";
+  const thirdTitle = newCategories[2]?.name ?? "Home & Living";
+  const fourthTitle = newCategories[3]?.name ?? "Health & Beauty";
+
   return (
     <>
       {/* Header */}
@@ -24,9 +37,12 @@ export default function CuratedCollections() {
       </div>
 
       {/* Bento Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-[520px]">
+      <div to="" className="grid grid-cols-1 md:grid-cols-2 gap-4 h-[520px]">
         {/* Electronics - large left card */}
-        <div className="relative rounded-2xl overflow-hidden group cursor-pointer h-full">
+        <NavLink
+          to="/filter"
+          className="relative rounded-2xl overflow-hidden group cursor-pointer h-full"
+        >
           <img
             src="https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?q=80&w=1200&auto=format&fit=crop"
             alt="Electronics"
@@ -35,21 +51,18 @@ export default function CuratedCollections() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
           <div className="absolute bottom-0 left-0 p-6">
             <h3 className="text-white text-2xl font-semibold mb-1">
-              Electronics
+              {firstTitle}
             </h3>
-            <p className="text-gray-200 text-sm mb-4">
-              Precision engineering meets aesthetic design.
-            </p>
-            <button className="bg-white/90 hover:bg-white text-gray-900 text-sm font-medium px-4 py-2 rounded-full transition-colors">
-              Browse Gear
-            </button>
           </div>
-        </div>
+        </NavLink>
 
         {/* Right column: Fashion on top, Home/Beauty below */}
         <div className="grid md:grid-rows-2 grid-rows-1 gap-4 h-full">
           {/* Fashion - top right */}
-          <div className="relative rounded-2xl overflow-hidden group cursor-pointer">
+          <NavLink
+            to="/filter"
+            className="relative rounded-2xl overflow-hidden group cursor-pointer"
+          >
             <img
               src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop"
               alt="Fashion"
@@ -57,14 +70,18 @@ export default function CuratedCollections() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent" />
             <div className="absolute bottom-0 left-0 p-5">
-              <h3 className="text-white text-xl font-semibold">Fashion</h3>
-              <p className="text-gray-200 text-xs">Essential Wardrobe</p>
+              <h3 className="text-white text-xl font-semibold">
+                {secondTitle}
+              </h3>
             </div>
-          </div>
+          </NavLink>
 
           {/* Bottom row: Home & Living + Health & Beauty */}
           <div className="md:grid grid-cols-2 gap-4 hidden ">
-            <div className="relative rounded-2xl overflow-hidden group cursor-pointer">
+            <NavLink
+              to="/filter"
+              className="relative rounded-2xl overflow-hidden group cursor-pointer"
+            >
               <img
                 src="https://images.unsplash.com/photo-1567016432779-094069958ea5?q=80&w=800&auto=format&fit=crop"
                 alt="Home & Living"
@@ -73,12 +90,15 @@ export default function CuratedCollections() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent" />
               <div className="absolute bottom-0 left-0 p-4">
                 <h3 className="text-white text-sm font-semibold">
-                  Home & Living
+                  {thirdTitle}
                 </h3>
               </div>
-            </div>
+            </NavLink>
 
-            <div className="relative rounded-2xl overflow-hidden group cursor-pointer">
+            <NavLink
+              to="/filter"
+              className="relative rounded-2xl overflow-hidden group cursor-pointer"
+            >
               <img
                 src="https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=800&auto=format&fit=crop"
                 alt="Health & Beauty"
@@ -87,10 +107,10 @@ export default function CuratedCollections() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent" />
               <div className="absolute bottom-0 left-0 p-4">
                 <h3 className="text-white text-sm font-semibold">
-                  Health & Beauty
+                  {fourthTitle}
                 </h3>
               </div>
-            </div>
+            </NavLink>
           </div>
         </div>
       </div>

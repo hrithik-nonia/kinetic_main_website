@@ -1,12 +1,13 @@
 // built in imports
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Star } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
 
 // custom imports
-import categoryService from "../../services/categoryService";
+import { UserContext } from "../../context/AppContext";
 
 export default function FiltersSidebar({ onFilterChange, dbMaxPrice = 2000 }) {
+  // context provider
+  const { categories } = useContext(UserContext);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [price, setPrice] = useState(dbMaxPrice);
   const [rating, setRating] = useState(0);
@@ -49,12 +50,6 @@ export default function FiltersSidebar({ onFilterChange, dbMaxPrice = 2000 }) {
     });
   };
 
-  const { data } = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => categoryService.getAllCategories(),
-  });
-
-  const categories = data?.categories ?? [];
   return (
     <div className="bg-white rounded-xl border border-gray-200 p-5 flex flex-col gap-6 text-sm font-sans">
       {/* Header */}
@@ -75,7 +70,7 @@ export default function FiltersSidebar({ onFilterChange, dbMaxPrice = 2000 }) {
         </span>
         {categories.map((cat) => (
           <label
-            key={cat.slug}
+            key={cat.name}
             className="flex items-center gap-2 cursor-pointer group"
           >
             <div
